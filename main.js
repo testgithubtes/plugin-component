@@ -32,7 +32,7 @@ $(document).ready(function() {
   // var nextbutton
   var nextButton = `<button type="button" id="nextButton">next</button>`;
   // var textDescription
-  var textDescription = `<h3>choose your component</h3>`;
+  var textDescription = `<h3 id="textDescriptionCss">choose your component</h3>`;
   // var componentJs
   var textDescriptionJs = `<h3>Choose event </h3>`;
   var selectorJs = `<input type="checkbox" name="hover" value="hoverChoix"id="hoverChoix"><label for="hoverChoix">hover</label>
@@ -41,28 +41,90 @@ $(document).ready(function() {
   <input type="checkbox" name="change" value="valueChange" id="valueChange"><label for="valueChange">value change</label>`;
   var nextButtonJs = `<button type="button" id="nextButtonJs">next</button>`;
   // var componentCss
-  var textDescriptionCss="<h3>You need CSS</h3>";
-  var nextButtonCss =`<button type="button" id="End">no</button><br><button type="button" id="choixCss">yes</button>`;
-  var selectorCss =`<select id='cssCompon'>
+  var textDescriptionCss = "<h3>You need CSS</h3>";
+  var nextButtonCss = `<button type="button" id="End">no</button><br><button type="button" id="choixCss">yes</button>`;
+  var selectorCss = `<select id='cssCompon'>
   <option value="color">color</option>
   <option value="font-size">font-size</option>
   </select> `;
+  // var affiche
+  var contenuHtml = `<textarea id="contenuHtml" rows="3" cols="54" ></textarea>`;
+  var contenuJs = `<textarea id="contenuJs" rows="4" cols="54" ></textarea>`;
+  var contenuCss = `<textarea id="contenuCss" rows="1" cols="54" ></textarea>`;
 
 
 
-  var popup = "<span class=\"popuptext\" id=\"myPopup\"><div id=\"componentHTML\">" + textDescription + selectorHtml + nextButton + "</div><div id=\"componentJs\">" + textDescriptionJs + selectorJs + nextButtonJs + "</div> <div id=\"componentCss\">" + textDescriptionCss + selectorCss + nextButtonCss + "</div></span>";
+
+  var popup = "<span class=\"popuptext\" id=\"myPopup\"><div id=\"componentHTML\">" + textDescription + selectorHtml + nextButton + "</div><div id=\"componentJs\">" + textDescriptionJs + selectorJs + nextButtonJs + "</div> <div id=\"componentCss\">" + textDescriptionCss + selectorCss + nextButtonCss + "</div><div id=\"affiche\">" + contenuHtml + contenuJs + contenuCss + "</div></span>";
   body.append(popup);
-
+  // affiche property
+  var affiche = $('#affiche');
+  affiche.css({
+    'display': 'none'
+  });
+  var contenuHtmlId = $('#contenuHtml');
+  var contenuCssId = $('#contenuCss');
+  contenuCssId.css({
+    'display': 'none'
+  });
+  var contenuJsId = $('#contenuJs');
   // componentCss property
-
+  var componentCss = $('#componentCss');
+  componentCss.css({
+    'display': 'none'
+  });
+  var yesBtn = $('#choixCss');
+  yesBtn.css({
+    'border-radius': '4px',
+    'background-color': '#f4511e',
+    'border': 'none',
+    'color': '#FFFFFF',
+    'text-align': 'center',
+    'font-size': '28px',
+    'padding': '20px',
+    'width': '200px',
+    'transition': 'all 0.5s',
+    'cursor': 'pointer',
+    'margin': '5px',
+    'order': '2',
+  });
+  var noBtn = $('#End');
+  noBtn.css({
+    'border-radius': '4px',
+    'background-color': '#f4511e',
+    'border': 'none',
+    'color': '#FFFFFF',
+    'text-align': 'center',
+    'font-size': '28px',
+    'padding': '20px',
+    'width': '200px',
+    'transition': 'all 0.5s',
+    'cursor': 'pointer',
+    'margin': '5px',
+    'order': '2',
+  });
+  var cssCompon = $('#cssCompon');
+  cssCompon.css({
+    'display': 'none',
+    'background-color': '#f9f9f9',
+    'min-width': '160px',
+    'box-shadow': '0px 8px 16px 0px rgba(0,0,0,0.2)',
+    'padding': '12px 16px',
+    'width': '200px',
+    'order': '1',
+    'text-align': 'center',
+    'font-size': '28px',
+  });
   // componentHTML property
   var componentHTML = $('#componentHTML');
   // componentJs property
   var componentJs = $('#componentJs');
   // componentJs css
   componentJs.css({
-    'display': 'none'
+    'display': 'none',
+
   });
+
   var selectorJsId = $('input[type="checkbox"]');
   selectorJsId.css({
     'border': '5px solid #0DFF92',
@@ -151,8 +213,9 @@ $(document).ready(function() {
   });
   var componentId = "";
   // Function of selection html component
+  var htmlComponent;
   nextButtonId.click(function() {
-    var htmlComponent;
+
     componentHTML.toggle();
     componentJs.toggle();
     componentId = $('option:selected').val();
@@ -182,25 +245,43 @@ $(document).ready(function() {
     }
   });
   // Function of selection js component
+  var jSComponent = "";
   nextButtonJsId.click(function() {
-    var jSComponent = "";
+
     componentJs.toggle();
-    // componentCss.toggle();
+    componentCss.toggle();
     $(':input[type="checkbox"]:checked').each(function() {
-      if($(this.val)!= "keypress"){
-      jSComponent += `$(#` + componentId + `).` + $(this).val() + `(function(){//write your action})<br>`;
-    }else{
-      jSComponent += `$(#` + componentId + `).` + $(this).val() + `(function( event ) {
+      if ($(this.val) != "keypress") {
+        jSComponent += `$(#'` + componentId + `').` + $(this).val() + `(function(){//write your action})\n`;
+      } else {
+        jSComponent += `$(#'` + componentId + `').` + $(this).val() + `(function( event ) {
   if ( event.which == 13 ) {
      //write your action
   }})<br>`;
-    }
+      }
     });
-    alert(jSComponent);
-
-
   });
+// function of no button
+var cssComponent="";
+noBtn.click(function() {
+  componentCss.toggle();
+  affiche.toggle();
 
+  contenuJsId.text(jSComponent);
+  contenuHtmlId.text(htmlComponent);
+  if(cssComponent!=""){
+    contenuCssId.toggle();
+  contenuCssId.text(cssComponent);
+  }
+});
+// function of yes button
+yesBtn.click(function() {
+  yesBtn.toggle();
+  $('#textDescriptionCss').text('Please choose one');
+  cssCompon.toggle();
+  noBtn.text('next');
+  cssComponent=`#`+componentId+`{`+$('#cssCompon option:selected').val()+`: }`;
 
+});
 
 });
