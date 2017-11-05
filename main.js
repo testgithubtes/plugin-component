@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 
 
-  var popup = "<span class=\"popuptext\" id=\"myPopup\"><div id=\"componentHTML\">" + textDescription + selectorHtml + nextButton + "</div><div id=\"componentJs\">" + textDescriptionJs + selectorJs + nextButtonJs + "</div> <div id=\"componentCss\">" + textDescriptionCss + selectorCss + nextButtonCss + "</div><div id=\"affiche\">" + contenuHtml + contenuJs + contenuCss + "</div></span>";
+  var popup = "<span class=\"popuptext\" id=\"myPopup\"><div id=\"containerFlex\"><div id=\"componentHTML\">" + textDescription + selectorHtml + nextButton + "</div><div id=\"componentJs\">" + textDescriptionJs + selectorJs + nextButtonJs + "</div> <div id=\"componentCss\">" + textDescriptionCss + selectorCss + nextButtonCss + "</div><div id=\"affiche\">" + contenuHtml + contenuJs + contenuCss + "</div></div></span>";
   body.append(popup);
   // affiche property
   var affiche = $('#affiche');
@@ -152,7 +152,15 @@ $(document).ready(function() {
     'margin': '5px',
     'order': '2',
   })
-
+  //  containerFlex property
+  var containerFlex =$('#containerFlex');
+  containerFlex.css({
+    'flex-direction': 'row',
+    'display': '-webkit-flex',
+    'display': 'flex',
+    '-webkit-flex-direction': 'column',
+    'flex-direction': 'column',
+  });
   // popup css
   var popupV = $('.popuptext');
   popupV.css({
@@ -164,11 +172,6 @@ $(document).ready(function() {
     'border-radius': '6px',
     'padding': ' 8px 0',
     'position': 'fixed',
-    'flex-direction': 'row',
-    'display': '-webkit-flex',
-    'display': 'flex',
-    '-webkit-flex-direction': 'column',
-    'flex-direction': 'column',
     'z-index': '2',
     'float': 'left'
     // 'bottom': '125%',
